@@ -1,0 +1,22 @@
+{
+    "name": "mickaelandrieu/twig-skill",
+    "type": "jarvis-skill",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mickaël Andrieu",
+            "email": "andrieu.travail@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "~1.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.7.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jarvis\\Skill\\Twig\\": "src/"
+        }
+    }
+}
