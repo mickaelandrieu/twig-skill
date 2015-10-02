@@ -10,7 +10,7 @@ class ContainerProvider implements ContainerProviderInterface
     /**
      * {@inheritdoc}
      */
-    public static function hydrate(Jarvis $jarvis)
+    public function hydrate(Jarvis $jarvis)
     {
         $jarvis['twig'] = function () {
             $loader = new Twig_Loader_Filesystem(BBB_CONFIG['twig']['templates_path']);
