@@ -10,14 +10,27 @@ class ContainerProvider implements ContainerProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function hydrate(Jarvis $jarvis)
+    public function hydrate(Jarvis $container)
     {
-        $jarvis['twig'] = function () {
-            $loader = new \Twig_Loader_Filesystem(TWIG_CONFIG['twig']['templates_path']);
+        $container['twig'] = function ($container) {
+            $config = array_merge(
+                [
+                    'auto-reload' => true,
+                    'debug' => $container->debug,
+                    'strict_variables' => true
+                ],
+                $container->settings->get('twig', [])
+            );
+
+            if (!isset($config['templates_paths'])) {
+                throw new \LogicException('Parameter `templates_paths` is missing to configure Twig.');
+            }
+
+            $loader = new \Twig_Loader_Filesystem(TWIG_CONFIG['twig']['templates_path'], $config);
 
             return new \Twig_Environment($loader);
         };
 
-        $jarvis->lock('twig');
+        $container->lock('twig');
     }
 }
