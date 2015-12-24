@@ -7,21 +7,32 @@ is available when Jarvis Application is started:
 
 ```php
 <?php
-/* config.php */
-const TWIG_CONFIG = [
-    'templates_path' => __DIR__.'/views'
-];
+
+require_once __DIR__.'/vendor/autoload.php';
+
+$jarvis = new Jarvis\Jarvis([
+    'container_provider' => [
+        'Jarvis\Skill\Twig\ContainerProvider',
+    ],
+    'twig' => [
+        'templates_paths' => '/path/to/templates',
+    ],
+]);
 ```
 
-For instance, you can create a ``config.php`` file at the root of your project and then
-require or include it in your front controller.
+Note that `templates_paths` is a required parameter. This skill changes default values for some options:
 
+- `debug`: if not provided, this value take the value of Jarvis `debug` parameter.
+- `auto_reload`: this is setted to `true` as default value in this skill.
+- `strict_variables`: this option is also setted to `true` by default.
+
+You can see complete options list on [Twig documentation](http://twig.sensiolabs.org/doc/api.html#environment-options).
 
 ```php
 <?php
 
-require_once('./vendor/autoload.php');
-require_once('./config.php');
+require_once('./../vendor/autoload.php');
+require_once('./../config.php');
 
 use Jarvis\Jarvis;
 /* ... */
