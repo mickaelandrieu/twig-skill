@@ -26,7 +26,7 @@ class ContainerProvider implements ContainerProviderInterface
                 throw new \LogicException('Parameter `templates_paths` is missing to configure Twig.');
             }
 
-            $loader = new \Twig_Loader_Filesystem(TWIG_CONFIG['twig']['templates_path'], $config);
+            $loader = new \Twig_Loader_Filesystem($config['templates_paths'], $config);
 
             return new \Twig_Environment($loader);
         };
